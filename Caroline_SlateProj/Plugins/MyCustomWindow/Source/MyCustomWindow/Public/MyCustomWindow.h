@@ -18,7 +18,8 @@ public:
 	
 	/** This function will be bound to Command (by default it will bring up plugin window) */
 	void PluginButtonClicked();
-	
+	void AddToolBarExtension(FToolBarBuilder& builder);
+
 private:
 
 	void RegisterMenus();

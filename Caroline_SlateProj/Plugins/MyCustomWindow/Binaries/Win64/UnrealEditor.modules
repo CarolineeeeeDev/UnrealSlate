@@ -2,6 +2,6 @@
 	"BuildId": "27405482",
 	"Modules": 
 	{
-		"MyCustomWindow": "UnrealEditor-MyCustomWindow-0002.dll"
+		"MyCustomWindow": "UnrealEditor-MyCustomWindow.dll"
 	}
 }

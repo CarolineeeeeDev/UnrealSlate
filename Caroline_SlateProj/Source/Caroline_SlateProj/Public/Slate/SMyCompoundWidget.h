@@ -16,7 +16,7 @@ public:
 	{}
 
 	SLATE_ARGUMENT(TWeakObjectPtr<AMyHUD>, OwnerHUDArg)
-	SLATE_ARGUMENT(UUserWidget*, OwnerWidgetArg)
+	//SLATE_ARGUMENT(UUserWidget*, OwnerWidgetArg)
 	SLATE_END_ARGS()
 
 	void Construct(const FArguments& InArgs);
@@ -26,5 +26,5 @@ public:
 
 private:
 	TWeakObjectPtr<AMyHUD> MyOwnerHUD;
-	UUserWidget* MyOwnerWidget;
+	//UUserWidget* MyOwnerWidget;
 };

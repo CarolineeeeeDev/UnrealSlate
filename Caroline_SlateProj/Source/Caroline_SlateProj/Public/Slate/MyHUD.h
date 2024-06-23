@@ -25,6 +25,6 @@ private:
 	TSharedPtr<SMyCompoundWidget> MyCompoundWidget;
 	TSharedPtr<SWeakWidget> WidgetContainer;
 
-	UClass* MyClass;
-	UUserWidget* MyUserWidget;
+	//UClass* MyClass;
+	//UUserWidget* MyUserWidget;
 };

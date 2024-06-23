@@ -34,6 +34,18 @@ void FMyCustomWindowModule::StartupModule()
 	FGlobalTabmanager::Get()->RegisterNomadTabSpawner(MyCustomWindowTabName, FOnSpawnTab::CreateRaw(this, &FMyCustomWindowModule::OnSpawnPluginTab))
 		.SetDisplayName(LOCTEXT("FMyCustomWindowTabTitle", "MyCustomWindow"))
 		.SetMenuType(ETabSpawnerMenuType::Hidden);
+
+	//工具栏扩展按钮
+	FLevelEditorModule& LevelEditorModule = FModuleManager::LoadModuleChecked<FLevelEditorModule>("LevelEditor");
+	TSharedPtr<FExtender> ToolBarExtender = MakeShareable(new FExtender);
+	ToolBarExtender->AddToolBarExtension(
+		"Play",
+		EExtensionHook::After,
+		PluginCommands,
+		FToolBarExtensionDelegate::CreateRaw(this, &FMyCustomWindowModule::AddToolBarExtension)
+	);
+	LevelEditorModule.GetToolBarExtensibilityManager()->AddExtender(ToolBarExtender);
+	
 }
 
 void FMyCustomWindowModule::ShutdownModule()
@@ -77,6 +89,11 @@ TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnPluginTab(const FSpawnTabArgs
 void FMyCustomWindowModule::PluginButtonClicked()
 {
 	FGlobalTabmanager::Get()->TryInvokeTab(MyCustomWindowTabName);
+}
+
+void FMyCustomWindowModule::AddToolBarExtension(FToolBarBuilder& builder)
+{
+	builder.AddToolBarButton(FMyCustomWindowCommands::Get().OpenPluginWindow);
 }
 
 void FMyCustomWindowModule::RegisterMenus()
