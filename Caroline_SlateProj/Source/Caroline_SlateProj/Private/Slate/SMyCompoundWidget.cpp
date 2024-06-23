@@ -9,6 +9,8 @@
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SMyCompoundWidget::Construct(const FArguments& InArgs)
 {
+	MyOwnerHUD = InArgs._OwnerHUDArg;
+
 	const FMargin ContentPadding = FMargin(500.0,300.0);
 	const FMargin ButtonPadding = FMargin(20.0);
 	const FText TitleText = LOCTEXT("SlateTest", "Slate Test");
@@ -50,6 +52,7 @@ void SMyCompoundWidget::Construct(const FArguments& InArgs)
 			.Padding(ButtonPadding)
 			[
 				SNew(SButton)
+				.OnClicked(this, &SMyCompoundWidget::OnPlayClick)
 				[
 					SNew(STextBlock)
 					.Font(ButtonTextStyle)
@@ -61,6 +64,7 @@ void SMyCompoundWidget::Construct(const FArguments& InArgs)
 			.Padding(ButtonPadding)
 			[
 				SNew(SButton)
+				.OnClicked(this, &SMyCompoundWidget::OnQuitClick)
 				[
 					SNew(STextBlock)
 					.Font(ButtonTextStyle)
@@ -70,6 +74,24 @@ void SMyCompoundWidget::Construct(const FArguments& InArgs)
 			]
 		]
 	];
+}
+
+FReply SMyCompoundWidget::OnPlayClick() const
+{
+	if (MyOwnerHUD.IsValid())
+	{
+		MyOwnerHUD->RemoveMySlate();
+	}
+	return FReply::Handled();
+}
+
+FReply SMyCompoundWidget::OnQuitClick() const
+{
+	if (MyOwnerHUD.IsValid())
+	{
+		MyOwnerHUD->PlayerOwner->ConsoleCommand("quit");
+	}
+	return FReply::Handled();
 }
 
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

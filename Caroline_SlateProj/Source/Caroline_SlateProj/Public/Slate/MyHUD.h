@@ -8,6 +8,8 @@
 #include "GameFramework/HUD.h"
 #include "MyHUD.generated.h"
 
+class SMyCompoundWidget;
+
 UCLASS()
 class CAROLINE_SLATEPROJ_API AMyHUD : public AHUD
 {
