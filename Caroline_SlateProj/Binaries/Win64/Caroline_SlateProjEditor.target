@@ -3472,10 +3472,6 @@
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(ProjectDir)/Content/Slate/LV_SlateTest.umap",
-			"Type": "UFS"
-		},
-		{
 			"Path": "$(ProjectDir)/Content/Slate/WBP_MySlateUMG.uasset",
 			"Type": "UFS"
 		},

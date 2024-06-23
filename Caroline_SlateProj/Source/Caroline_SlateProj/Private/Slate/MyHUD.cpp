@@ -12,7 +12,7 @@ void AMyHUD::ShowMySlate()
 {
 	if (GEngine && GEngine->GameViewport)
 	{
-		MyCompoundWidget = SNew(SMyCompoundWidget).OwnerHUDArg(this);
+		MyCompoundWidget = SNew(SMyCompoundWidget);
 		//第一种添加Slate到视口
 		GEngine->GameViewport->AddViewportWidgetContent(MyCompoundWidget.ToSharedRef());//智能指针转化为智能引用
 		//第二种添加Slate到视口
