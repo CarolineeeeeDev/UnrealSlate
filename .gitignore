@@ -1,0 +1,30 @@
+# 忽略编译生成的文件和文件夹
+Intermediate/
+DerivedDataCache/
+Saved/
+ 
+# 忽略日志文件
+*.log
+ 
+# 忽略Unreal Engine生成的源代码映射文件
+*.unreal
+ 
+# 忽略Unreal Engine自动生成的模块文件
+*.generated.h
+ 
+# 忽略Unreal Engine自动生成的模板文件
+*.uproject
+*.uplugin
+ 
+# 忽略用户特定的配置文件
+*.uproject-meta
+Local.build.info
+ 
+# 忽略二进制文件
+*.bin
+ 
+# 忽略版本控制的快照
+VersionControl.snapshot
+ 
+# 忽略其他不需要版本控制的文件或文件夹
+.vs/
