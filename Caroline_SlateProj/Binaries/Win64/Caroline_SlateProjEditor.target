@@ -34,6 +34,18 @@
 			"Type": "RequiredResource"
 		},
 		{
+			"Path": "$(ProjectDir)/Plugins/MyCustomWindow/Binaries/Win64/UnrealEditor-MyCustomWindow.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/MyCustomWindow/Binaries/Win64/UnrealEditor-MyCustomWindow.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/MyCustomWindow/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
 			"Path": "$(EngineDir)/Binaries/Win64/AgentInterface.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -3477,6 +3489,10 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Content/Slate/UMG_Test.uasset",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/MyCustomWindow/MyCustomWindow.uplugin",
 			"Type": "UFS"
 		},
 		{
