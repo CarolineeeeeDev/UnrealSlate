@@ -10,6 +10,7 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SMyCompoundWidget::Construct(const FArguments& InArgs)
 {
 	MyOwnerHUD = InArgs._OwnerHUDArg;
+	MyOwnerWidget = InArgs._OwnerWidgetArg;
 
 	const FMargin ContentPadding = FMargin(500.0,300.0);
 	const FMargin ButtonPadding = FMargin(20.0);
@@ -35,6 +36,12 @@ void SMyCompoundWidget::Construct(const FArguments& InArgs)
 		[
 			SNew(SBackgroundBlur)
 			.BlurStrength(10.0f)
+		]
+		+SOverlay::Slot()
+		.HAlign(HAlign_Fill).VAlign(VAlign_Fill)
+		.Padding(100)
+		[
+			MyOwnerWidget->TakeWidget()
 		]
 		+SOverlay::Slot()
 		.HAlign(HAlign_Fill).VAlign(VAlign_Fill)

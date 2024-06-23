@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "SMyCompoundWidget.h"
+#include "Blueprint/UserWidget.h"
 #include "Widgets/SWeakWidget.h"
 #include "GameFramework/HUD.h"
 #include "MyHUD.generated.h"
@@ -23,4 +24,7 @@ public:
 private:
 	TSharedPtr<SMyCompoundWidget> MyCompoundWidget;
 	TSharedPtr<SWeakWidget> WidgetContainer;
+
+	UClass* MyClass;
+	UUserWidget* MyUserWidget;
 };

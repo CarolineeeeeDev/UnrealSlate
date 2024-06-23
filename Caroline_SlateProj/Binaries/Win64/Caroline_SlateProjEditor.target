@@ -3476,7 +3476,7 @@
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(ProjectDir)/Content/Slate/WBP_MySlateUMG.uasset",
+			"Path": "$(ProjectDir)/Content/Slate/UMG_Test.uasset",
 			"Type": "UFS"
 		},
 		{
