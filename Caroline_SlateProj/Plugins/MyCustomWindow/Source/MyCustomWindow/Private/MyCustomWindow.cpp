@@ -46,6 +46,10 @@ void FMyCustomWindowModule::StartupModule()
 	);
 	LevelEditorModule.GetToolBarExtensibilityManager()->AddExtender(ToolBarExtender);
 	
+	TSharedPtr<FExtender> MenuBarExtender = MakeShareable(new FExtender);
+	MenuBarExtender->AddMenuBarExtension("Help", EExtensionHook::After, PluginCommands, FMenuBarExtensionDelegate::CreateRaw(this, &FMyCustomWindowModule::AddMenuBarExtension));
+	LevelEditorModule.GetMenuExtensibilityManager()->AddExtender(MenuBarExtender);
+
 }
 
 void FMyCustomWindowModule::ShutdownModule()
@@ -94,6 +98,11 @@ void FMyCustomWindowModule::PluginButtonClicked()
 void FMyCustomWindowModule::AddToolBarExtension(FToolBarBuilder& builder)
 {
 	builder.AddToolBarButton(FMyCustomWindowCommands::Get().OpenPluginWindow);
+}
+
+void FMyCustomWindowModule::AddMenuBarExtension(FMenuBarBuilder& builder)
+{
+	builder.AddMenuEntry(FMyCustomWindowCommands::Get().OpenPluginWindow);
 }
 
 void FMyCustomWindowModule::RegisterMenus()
