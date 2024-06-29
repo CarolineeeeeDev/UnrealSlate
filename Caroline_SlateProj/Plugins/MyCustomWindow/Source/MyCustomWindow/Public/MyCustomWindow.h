@@ -36,4 +36,7 @@ private:
 	TSharedPtr<class FUICommandList> PluginCommands;
 	TSharedPtr<FTabManager> MyWindowTabManager;
 	TSharedPtr<FTabManager::FLayout> MyWindowLayout;
+
+	TSharedPtr<SDockTab>  MainCanvasTab;
+	bool OnCanCloseTab();
 };

@@ -9,6 +9,7 @@
 #include "Widgets/Text/STextBlock.h"
 #include "ToolMenus.h"
 #include "Framework/Application/SlateApplication.h"
+#include "Slate/SMyCanvas.h"
 
 static const FName MyCustomWindowTabName("MyCustomWindow");
 static const FName MyWindowTabName1("MyWindow1");
@@ -132,14 +133,14 @@ TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnPluginTab(const FSpawnTabArgs
 
 void FMyCustomWindowModule::PluginButtonClicked()
 {
-	//FGlobalTabmanager::Get()->TryInvokeTab(MyCustomWindowTabName);
-	auto Window = SNew(SWindow)
+	FGlobalTabmanager::Get()->TryInvokeTab(MyCustomWindowTabName);
+	/*auto Window = SNew(SWindow)
 		.Title(FText::FromString("MyCustomWindow"))
 		.ClientSize(FVector2D(600, 600))
 		[
 			SNew(SSpacer)
 		];
-	FSlateApplication::Get().AddWindow(Window);
+	FSlateApplication::Get().AddWindow(Window);*/
 
 }
 
@@ -160,12 +161,23 @@ void FMyCustomWindowModule::AddMenuExtension(FMenuBuilder& builder)
 
 TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnCustomWindow1(const FSpawnTabArgs& SpawnTabArgs)
 {
-	return SNew(SDockTab);
+	SAssignNew(MainCanvasTab, SDockTab)
+		.OnCanCloseTab(SDockTab::FCanCloseTab::CreateRaw(this, &FMyCustomWindowModule::OnCanCloseTab))
+		.TabRole(ETabRole::MajorTab)
+		.ContentPadding(FMargin(0));
+
+	MainCanvasTab->SetContent(SNew(SMyCanvas));
+	return MainCanvasTab.ToSharedRef();
 }
 
 TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnCustomWindow2(const FSpawnTabArgs& SpawnTabArgs)
 {
 	return SNew(SDockTab);
+}
+
+bool FMyCustomWindowModule::OnCanCloseTab()
+{
+	return true;
 }
 
 void FMyCustomWindowModule::RegisterMenus()
