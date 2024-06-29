@@ -39,6 +39,48 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 						.Text(this,&SMyCanvas::GetCurrentItemLabel)
 				]
 		];
+
+	//HorizontalBox and VerticalBox
+	AddSlot()
+		.Position(FVector2D(100, 300))
+		.Size(FVector2D(100, 40))
+		[
+			SNew(SHorizontalBox)
+				+ SHorizontalBox::Slot()
+				.FillWidth(2.0)
+				.HAlign(HAlign_Fill)
+				[
+					SNew(SButton)
+				]
+				+ SHorizontalBox::Slot()
+				[
+					SNew(SButton)
+				]
+				+ SHorizontalBox::Slot()
+				[
+					SNew(SButton)
+				]
+		];
+	AddSlot()
+		.Position(FVector2D(300, 300))
+		.Size(FVector2D(100, 40))
+		[
+			SNew(SVerticalBox)
+				+ SVerticalBox::Slot()
+				[
+					SNew(SButton)
+				]
+				+ SVerticalBox::Slot()
+				.FillHeight(2.0)
+				.HAlign(HAlign_Fill)
+				[
+					SNew(SButton)
+				]
+				+ SVerticalBox::Slot()
+				[
+					SNew(SButton)
+				]
+		];
 }
 FReply SMyCanvas::OnClickButton()
 {
