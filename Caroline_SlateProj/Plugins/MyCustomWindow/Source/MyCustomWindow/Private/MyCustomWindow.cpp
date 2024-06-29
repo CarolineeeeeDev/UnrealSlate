@@ -8,6 +8,7 @@
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Text/STextBlock.h"
 #include "ToolMenus.h"
+#include "Framework/Application/SlateApplication.h"
 
 static const FName MyCustomWindowTabName("MyCustomWindow");
 static const FName MyWindowTabName1("MyWindow1");
@@ -131,7 +132,15 @@ TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnPluginTab(const FSpawnTabArgs
 
 void FMyCustomWindowModule::PluginButtonClicked()
 {
-	FGlobalTabmanager::Get()->TryInvokeTab(MyCustomWindowTabName);
+	//FGlobalTabmanager::Get()->TryInvokeTab(MyCustomWindowTabName);
+	auto Window = SNew(SWindow)
+		.Title(FText::FromString("MyCustomWindow"))
+		.ClientSize(FVector2D(600, 600))
+		[
+			SNew(SSpacer)
+		];
+	FSlateApplication::Get().AddWindow(Window);
+
 }
 
 void FMyCustomWindowModule::AddToolBarExtension(FToolBarBuilder& builder)
