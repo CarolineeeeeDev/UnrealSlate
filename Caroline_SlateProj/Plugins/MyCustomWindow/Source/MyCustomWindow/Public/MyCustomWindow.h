@@ -18,15 +18,22 @@ public:
 	
 	/** This function will be bound to Command (by default it will bring up plugin window) */
 	void PluginButtonClicked();
-	void AddToolBarExtension(FToolBarBuilder& builder);
-	void AddMenuBarExtension(FMenuBarBuilder& builder);
-	void AddMenuExtension(FMenuBuilder& builder);
+	
 
 private:
 	void RegisterMenus();
 
 	TSharedRef<class SDockTab> OnSpawnPluginTab(const class FSpawnTabArgs& SpawnTabArgs);
 
+	void AddToolBarExtension(FToolBarBuilder& builder);
+	void AddMenuBarExtension(FMenuBarBuilder& builder);
+	void AddMenuExtension(FMenuBuilder& builder);
+
+	TSharedRef<SDockTab> OnSpawnCustomWindow1(const class FSpawnTabArgs& SpawnTabArgs);
+	TSharedRef<SDockTab> OnSpawnCustomWindow2(const class FSpawnTabArgs& SpawnTabArgs);
+
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;
+	TSharedPtr<FTabManager> MyWindowTabManager;
+	TSharedPtr<FTabManager::FLayout> MyWindowLayout;
 };

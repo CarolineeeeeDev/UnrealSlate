@@ -10,6 +10,8 @@
 #include "ToolMenus.h"
 
 static const FName MyCustomWindowTabName("MyCustomWindow");
+static const FName MyWindowTabName1("MyWindow1");
+static const FName MyWindowTabName2("MyWindow2");
 
 #define LOCTEXT_NAMESPACE "FMyCustomWindowModule"
 
@@ -31,8 +33,15 @@ void FMyCustomWindowModule::StartupModule()
 
 	UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FMyCustomWindowModule::RegisterMenus));
 	
+	//自定义窗口
 	FGlobalTabmanager::Get()->RegisterNomadTabSpawner(MyCustomWindowTabName, FOnSpawnTab::CreateRaw(this, &FMyCustomWindowModule::OnSpawnPluginTab))
 		.SetDisplayName(LOCTEXT("FMyCustomWindowTabTitle", "MyCustomWindow"))
+		.SetMenuType(ETabSpawnerMenuType::Hidden);
+	FGlobalTabmanager::Get()->RegisterNomadTabSpawner(MyWindowTabName1, FOnSpawnTab::CreateRaw(this, &FMyCustomWindowModule::OnSpawnCustomWindow1))
+		.SetDisplayName(LOCTEXT("FMyWindowTitle1", "MyWindow1"))
+		.SetMenuType(ETabSpawnerMenuType::Hidden);
+	FGlobalTabmanager::Get()->RegisterNomadTabSpawner(MyWindowTabName2, FOnSpawnTab::CreateRaw(this, &FMyCustomWindowModule::OnSpawnCustomWindow2))
+		.SetDisplayName(LOCTEXT("FMyWindowTitle2", "MyWindow2"))
 		.SetMenuType(ETabSpawnerMenuType::Hidden);
 
 	//工具栏扩展按钮
@@ -45,11 +54,11 @@ void FMyCustomWindowModule::StartupModule()
 		FToolBarExtensionDelegate::CreateRaw(this, &FMyCustomWindowModule::AddToolBarExtension)
 	);
 	LevelEditorModule.GetToolBarExtensibilityManager()->AddExtender(ToolBarExtender);
-	
+	//主菜单栏扩展按钮
 	TSharedPtr<FExtender> MenuBarExtender = MakeShareable(new FExtender);
 	MenuBarExtender->AddMenuBarExtension("Help", EExtensionHook::After, PluginCommands, FMenuBarExtensionDelegate::CreateRaw(this, &FMyCustomWindowModule::AddMenuBarExtension));
 	LevelEditorModule.GetMenuExtensibilityManager()->AddExtender(MenuBarExtender);
-
+	//菜单栏扩展按钮
 	TSharedPtr<FExtender> MenuExtender = MakeShareable(new FExtender);
 	MenuExtender->AddMenuExtension("WindowLayout", EExtensionHook::Before, PluginCommands, FMenuExtensionDelegate::CreateRaw(this, &FMyCustomWindowModule::AddMenuExtension));
 	LevelEditorModule.GetMenuExtensibilityManager()->AddExtender(MenuExtender);
@@ -73,24 +82,51 @@ void FMyCustomWindowModule::ShutdownModule()
 
 TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
 {
-	FText WidgetText = FText::Format(
-		LOCTEXT("WindowWidgetText", "Add code to {0} in {1} to override this window's contents"),
-		FText::FromString(TEXT("FMyCustomWindowModule::OnSpawnPluginTab")),
-		FText::FromString(TEXT("MyCustomWindow.cpp"))
-		);
+	//FText WidgetText = FText::Format(
+	//	LOCTEXT("WindowWidgetText", "Add code to {0} in {1} to override this window's contents"),
+	//	FText::FromString(TEXT("FMyCustomWindowModule::OnSpawnPluginTab")),
+	//	FText::FromString(TEXT("MyCustomWindow.cpp"))
+	//	);
 
-	return SNew(SDockTab)
-		.TabRole(ETabRole::NomadTab)
-		[
-			// Put your tab content here!
-			SNew(SBox)
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Center)
-			[
-				SNew(STextBlock)
-				.Text(WidgetText)
-			]
-		];
+	//return SNew(SDockTab)
+	//	.TabRole(ETabRole::NomadTab)
+	//	[
+	//		// Put your tab content here!
+	//		SNew(SBox)
+	//		.HAlign(HAlign_Center)
+	//		.VAlign(VAlign_Center)
+	//		[
+	//			SNew(STextBlock)
+	//			.Text(WidgetText)
+	//		]
+	//	];
+	const TSharedRef<SDockTab> NomadTab = SNew(SDockTab).TabRole(ETabRole::NomadTab);
+	if (!MyWindowTabManager.IsValid())
+	{
+		MyWindowTabManager = FGlobalTabmanager::Get()->NewTabManager(NomadTab);
+		MyWindowLayout = FTabManager::NewLayout("MyLayout")
+			->AddArea
+			(
+				FTabManager::NewPrimaryArea()
+				->SetOrientation(Orient_Horizontal)
+				->Split
+				(
+					FTabManager::NewStack()
+					->SetSizeCoefficient(0.5f)
+					->AddTab(MyWindowTabName1, ETabState::OpenedTab)
+				)
+				->Split
+				(
+					FTabManager::NewStack()
+					->SetSizeCoefficient(0.5f)
+					->AddTab(MyWindowTabName2, ETabState::OpenedTab)
+				)
+			);
+	}
+
+	TSharedRef<SWidget> TabContent = MyWindowTabManager->RestoreFrom(MyWindowLayout.ToSharedRef(), TSharedPtr<SWindow>()).ToSharedRef();
+	NomadTab->SetContent(TabContent);
+	return NomadTab;
 }
 
 void FMyCustomWindowModule::PluginButtonClicked()
@@ -111,6 +147,16 @@ void FMyCustomWindowModule::AddMenuBarExtension(FMenuBarBuilder& builder)
 void FMyCustomWindowModule::AddMenuExtension(FMenuBuilder& builder)
 {
 	builder.AddMenuEntry(FMyCustomWindowCommands::Get().OpenPluginWindow);
+}
+
+TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnCustomWindow1(const FSpawnTabArgs& SpawnTabArgs)
+{
+	return SNew(SDockTab);
+}
+
+TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnCustomWindow2(const FSpawnTabArgs& SpawnTabArgs)
+{
+	return SNew(SDockTab);
 }
 
 void FMyCustomWindowModule::RegisterMenus()
