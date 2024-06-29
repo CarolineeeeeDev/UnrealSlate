@@ -81,7 +81,58 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 					SNew(SButton)
 				]
 		];
+	//SEditableText
+	AddSlot()
+		.Position(FVector2D(500, 300))
+		.Size(FVector2D(200, 60))
+		[
+			SNew(SVerticalBox)
+				+ SVerticalBox::Slot()
+				.HAlign(HAlign_Fill)
+				.VAlign(VAlign_Fill)
+				[
+					SNew(SEditableText)
+						.Justification(ETextJustify::Left)
+						.HintText(FText::FromString("Input1"))
+						.Font(FCoreStyle::Get().GetFontStyle("Embossedtext"))
+						.ToolTipText(FText::FromString("MyEditableText"))
+						.ColorAndOpacity(FSlateColor::UseForeground())
+				]
+				+ SVerticalBox::Slot()
+				.HAlign(HAlign_Fill)
+				.VAlign(VAlign_Fill)
+				[
+					SNew(SEditableText)
+						.Justification(ETextJustify::Left)
+						.HintText(FText::FromString("Input2"))
+						.Font(FCoreStyle::Get().GetFontStyle("Embossedtext"))
+						.ToolTipText(FText::FromString("MyEditableText"))
+						.ColorAndOpacity(FSlateColor::UseForeground())
+				]
+		];
+	//SSplitter
+	AddSlot()
+		.Position(FVector2D(50, 400))
+		.Size(FVector2D(200, 200))
+		[
+			SNew(SSplitter)
+				+SSplitter::Slot()
+				[
+					SNew(SButton)
+						[
+							SNew(STextBlock)
+								.Text(FText::FromString("Button1"))
+						]
+				]
+				+ SSplitter::Slot()
+				[
+					SNew(SButton)
+						.Text(FText::FromString("Button2"))
+				]
+		];
+
 }
+
 FReply SMyCanvas::OnClickButton()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Red, TEXT("Button Clicked"));
