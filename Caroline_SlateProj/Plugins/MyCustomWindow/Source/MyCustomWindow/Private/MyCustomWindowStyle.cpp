@@ -39,12 +39,13 @@ const FVector2D Icon32x32(32.0f, 32.0f);
 
 TSharedRef< FSlateStyleSet > FMyCustomWindowStyle::Create()
 {
-	TSharedRef< FSlateStyleSet > Style = MakeShareable(new FSlateStyleSet("MyCustomWindowStyle"));
-	Style->SetContentRoot(IPluginManager::Get().FindPlugin("MyCustomWindow")->GetBaseDir() / TEXT("Resources"));
-
+	/*TSharedRef< FSlateStyleSet > Style = MakeShareable(new FSlateStyleSet("MyCustomWindowStyle"));
+	Style->SetContentRoot(IPluginManager::Get().FindPlugin("MyCustomWindow")->GetBaseDir() / TEXT("Resources"));*/
 	//Style->Set("MyCustomWindow.OpenPluginWindow", new IMAGE_BRUSH_SVG(TEXT("PlaceholderButtonIcon"), Icon20x20));
-	Style->Set("MyCustomWindow.OpenPluginWindow", new IMAGE_BRUSH(TEXT("MyCustomButtonIcon"), Icon32x32));
-
+	//Style->Set("MyCustomWindow.OpenPluginWindow", new IMAGE_BRUSH(TEXT("MyCustomButtonIcon"), Icon32x32));
+	TSharedRef< FSlateStyleSet > Style = FSlateGameResources::New(FMyCustomWindowStyle::GetStyleSetName(), "/Game/Slate/MySlateWidgetStyle", "/Game/Slate/MySlateWidgetStyle");
+	FString IconString = IPluginManager::Get().FindPlugin("MyCustomWindow")->GetBaseDir() / TEXT("Resources/MyCustomButtonIcon.png");
+	Style->Set("MyCustomWindow.OpenPluginWindow", new FSlateImageBrush(IconString, Icon32x32));
 	return Style;
 }
 

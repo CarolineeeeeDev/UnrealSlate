@@ -3,6 +3,8 @@
 
 #include "Slate/SMyCanvas.h"
 #include "SlateOptMacros.h"
+#include "Slate/MySlateWidgetMainStyle.h"
+#include "MyCustomWindowStyle.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SMyCanvas::Construct(const FArguments& InArgs)
@@ -130,7 +132,15 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 						.Text(FText::FromString("Button2"))
 				]
 		];
-
+	//StyleImage
+	const struct FMainWidgetStyle* MyCustomWidgetStyle = &FMyCustomWindowStyle::Get().GetWidgetStyle<FMainWidgetStyle>(TEXT("MyWidgetStyle"));
+	AddSlot()
+		.Position(FVector2D(200, 400))
+		.Size(FVector2D(100, 100))
+		[
+			SNew(SImage)
+				.Image(&MyCustomWidgetStyle->MyBrush)
+		];
 }
 
 FReply SMyCanvas::OnClickButton()
