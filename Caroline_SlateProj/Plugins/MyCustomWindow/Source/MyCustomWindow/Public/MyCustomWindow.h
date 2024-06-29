@@ -20,8 +20,9 @@ public:
 	void PluginButtonClicked();
 	void AddToolBarExtension(FToolBarBuilder& builder);
 	void AddMenuBarExtension(FMenuBarBuilder& builder);
-private:
+	void AddMenuExtension(FMenuBuilder& builder);
 
+private:
 	void RegisterMenus();
 
 	TSharedRef<class SDockTab> OnSpawnPluginTab(const class FSpawnTabArgs& SpawnTabArgs);
