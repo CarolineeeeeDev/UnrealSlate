@@ -12,8 +12,15 @@ public:
 	{}
 	SLATE_END_ARGS()
 
-	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
 
 	FReply OnClickButton();
+
+	//ComboBox
+	TSharedPtr<SComboBox<TSharedPtr<FString>>> MyComboBox;
+	TSharedPtr<FString> CurrentItem = 0;
+	TArray<TSharedPtr<FString>> Options;
+	TSharedRef<SWidget> MakeWidgetForOption(TSharedPtr<FString> InOption);
+	void OnSelectionChanged(TSharedPtr<FString> NewValue, ESelectInfo::Type);
+	FText GetCurrentItemLabel() const;
 };
