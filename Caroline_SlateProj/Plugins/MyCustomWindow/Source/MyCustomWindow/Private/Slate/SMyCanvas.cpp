@@ -5,6 +5,7 @@
 #include "SlateOptMacros.h"
 #include "Slate/MySlateWidgetMainStyle.h"
 #include "MyCustomWindowStyle.h"
+#include "Misc/MessageDialog.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SMyCanvas::Construct(const FArguments& InArgs)
@@ -177,6 +178,7 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 
 FReply SMyCanvas::OnClickButton()
 {
+	FMessageDialog::Open(EAppMsgType::OkCancel, FText::FromString("Button is OKCancel"));
 	GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Red, TEXT("Button Clicked"));
 	return FReply::Handled();
 }
