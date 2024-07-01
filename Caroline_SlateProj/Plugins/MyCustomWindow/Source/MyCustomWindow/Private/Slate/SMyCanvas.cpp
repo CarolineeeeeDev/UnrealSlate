@@ -192,6 +192,16 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 						]
 				]
 		];
+	AddSlot()
+		.Position(FVector2D(100, 700))
+		.Size(FVector2D(100, 50))
+		[
+			SNew(SButton)
+				.Text(FText::FromString("MyTestButton"))
+				.OnHovered_Lambda([]() {UE_LOG(LogTemp, Warning, TEXT("OnHorvered"))})
+				.OnPressed_Lambda([]() {UE_LOG(LogTemp, Warning, TEXT("OnPressed"))})
+				.OnReleased_Lambda([]() {UE_LOG(LogTemp, Warning, TEXT("OnReleased"))})
+		];
 }
 
 FReply SMyCanvas::OnClickButton()
