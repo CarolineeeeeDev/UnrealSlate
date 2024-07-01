@@ -162,6 +162,17 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 				//		.Image(&MyCustomWidgetStyle->MyBrush)
 				//]
 		];
+	AddSlot()
+		.Position(FVector2D(700, 500))
+		.Size(FVector2D(200, 200))
+		[
+			SNew(STextBlock)
+				.Text(FText::FromString("MyCustomTextBlock"))
+				.Justification(ETextJustify::Left)
+				.Font(MyCustomWidgetStyle->MyFont)
+				.ColorAndOpacity(MyCustomWidgetStyle->MyColor)
+				.AutoWrapText(true)
+		];
 }
 
 FReply SMyCanvas::OnClickButton()
