@@ -135,11 +135,32 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 	//StyleImage
 	const struct FMainWidgetStyle* MyCustomWidgetStyle = &FMyCustomWindowStyle::Get().GetWidgetStyle<FMainWidgetStyle>(TEXT("MyWidgetStyle"));
 	AddSlot()
-		.Position(FVector2D(200, 400))
+		.Position(FVector2D(300, 400))
 		.Size(FVector2D(100, 100))
 		[
 			SNew(SImage)
 				.Image(&MyCustomWidgetStyle->MyBrush)
+		];
+	//
+	AddSlot()
+		.Position(FVector2D(500, 400))
+		.Size(FVector2D(100, 100))
+		[
+			SNew(SOverlay)
+				+SOverlay::Slot()
+				.HAlign(HAlign_Fill)
+				.VAlign(VAlign_Fill)
+				[
+					SNew(SImage)
+						.Image(&MyCustomWidgetStyle->MyBrush)
+				]
+				//+SOverlay::Slot()
+				//.HAlign(HAlign_Center)
+				//.VAlign(VAlign_Center)
+				//[
+				//	SNew(SImage)
+				//		.Image(&MyCustomWidgetStyle->MyBrush)
+				//]
 		];
 }
 
