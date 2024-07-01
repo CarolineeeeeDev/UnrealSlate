@@ -80,6 +80,8 @@ void FMyCustomWindowModule::ShutdownModule()
 	FMyCustomWindowCommands::Unregister();
 
 	FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(MyCustomWindowTabName);
+	FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(MyWindowTabName1);
+	FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(MyWindowTabName2);
 }
 
 TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
@@ -161,13 +163,18 @@ void FMyCustomWindowModule::AddMenuExtension(FMenuBuilder& builder)
 
 TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnCustomWindow1(const FSpawnTabArgs& SpawnTabArgs)
 {
-	SAssignNew(MainCanvasTab, SDockTab)
-		.OnCanCloseTab(SDockTab::FCanCloseTab::CreateRaw(this, &FMyCustomWindowModule::OnCanCloseTab))
-		.TabRole(ETabRole::MajorTab)
-		.ContentPadding(FMargin(0));
+	//SAssignNew(MainCanvasTab, SDockTab)
+	//	.OnCanCloseTab(SDockTab::FCanCloseTab::CreateRaw(this, &FMyCustomWindowModule::OnCanCloseTab))
+	//	.TabRole(ETabRole::MajorTab)
+	//	.ContentPadding(FMargin(0));
 
-	MainCanvasTab->SetContent(SNew(SMyCanvas));
-	return MainCanvasTab.ToSharedRef();
+	//MainCanvasTab->SetContent(SNew(SMyCanvas));
+	//return MainCanvasTab.ToSharedRef();
+	return SNew(SDockTab)
+		.TabRole(NomadTab)
+		[
+			SNew(SMyCanvas)
+		];
 }
 
 TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnCustomWindow2(const FSpawnTabArgs& SpawnTabArgs)
