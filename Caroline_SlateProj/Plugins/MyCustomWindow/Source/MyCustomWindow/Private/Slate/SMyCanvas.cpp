@@ -164,7 +164,7 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 				//]
 		];
 	AddSlot()
-		.Position(FVector2D(700, 500))
+		.Position(FVector2D(700, 400))
 		.Size(FVector2D(200, 200))
 		[
 			SNew(STextBlock)
@@ -173,6 +173,24 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 				.Font(MyCustomWidgetStyle->MyFont)
 				.ColorAndOpacity(MyCustomWidgetStyle->MyColor)
 				.AutoWrapText(true)
+		];
+	AddSlot()
+		.Position(FVector2D(700, 500))
+		.Size(FVector2D(100, 100))
+		[
+			SNew(SOverlay)
+				+SOverlay::Slot()
+				.HAlign(HAlign_Center)
+				.VAlign(VAlign_Top)
+				[
+					SNew(SBox)
+						.WidthOverride(50)
+						.HeightOverride(50)
+						[
+							SNew(SBorder)
+								.BorderImage(&MyCustomWidgetStyle->MyBrush)
+						]
+				]
 		];
 }
 
