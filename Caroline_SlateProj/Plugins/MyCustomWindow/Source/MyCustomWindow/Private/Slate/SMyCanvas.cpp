@@ -8,6 +8,7 @@
 #include "Misc/MessageDialog.h"
 #include "Widgets/Layout/SConstraintCanvas.h"
 #include "Widgets/Layout/SGridPanel.h"
+#include "Widgets/Layout/SScrollBox.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SMyCanvas::Construct(const FArguments& InArgs)
@@ -287,6 +288,7 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 						]
 				]
 		];
+	//SGridPanel
 	AddSlot()
 		.Position(FVector2D(700, 650))
 		.Size(FVector2D(200, 200))
@@ -315,6 +317,73 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 				[
 					SNew(SImage)
 						.Image(&MyCustomWidgetStyle->MyBrush)
+				]
+		];
+	//SScrollBox
+	AddSlot()
+		.Position(FVector2D(700, 50))
+		.Size(FVector2D(100, 200))
+		[
+			SNew(SScrollBox)
+				+SScrollBox::Slot()
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("Custom1"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SScrollBox::Slot()
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("Custom2"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SScrollBox::Slot()
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("Custom3"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SScrollBox::Slot()
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("Custom4"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SScrollBox::Slot()
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("Custom5"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SScrollBox::Slot()
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("Custom6"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SScrollBox::Slot()
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("Custom7"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SScrollBox::Slot()
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("Custom8"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SScrollBox::Slot()
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("Custom9"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SScrollBox::Slot()
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("Custom10"))
+						.Font(MyCustomWidgetStyle->MyFont)
 				]
 		];
 }
