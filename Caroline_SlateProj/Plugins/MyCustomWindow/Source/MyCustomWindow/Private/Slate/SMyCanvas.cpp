@@ -243,6 +243,49 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 						.Font(MyCustomWidgetStyle->MyFont)
 				]
 		];
+	MyCheckBoxArray.SetNum(3);
+	AddSlot()
+		.Position(FVector2D(500, 700))
+		.Size(FVector2D(100, 100))
+		[
+			SNew(SVerticalBox)
+				+SVerticalBox::Slot()
+				[
+					SAssignNew(MyCheckBoxArray[0], SCheckBox)
+						.IsEnabled(true)
+						.IsChecked(ECheckBoxState::Unchecked)
+						.OnCheckStateChanged(this, &SMyCanvas::MyOnCheckBoxStateChange<0>)
+						.Content()
+						[
+							SNew(STextBlock)
+								.Text(FText::FromString("MyCheckBox1"))
+						]
+				]
+				+ SVerticalBox::Slot()
+				[
+					SAssignNew(MyCheckBoxArray[1], SCheckBox)
+						.IsEnabled(true)
+						.IsChecked(ECheckBoxState::Unchecked)
+						.OnCheckStateChanged(this, &SMyCanvas::MyOnCheckBoxStateChange<1>)
+						.Content()
+						[
+							SNew(STextBlock)
+								.Text(FText::FromString("MyCheckBox2"))
+						]
+				]
+				+ SVerticalBox::Slot()
+				[
+					SAssignNew(MyCheckBoxArray[2], SCheckBox)
+						.IsEnabled(true)
+						.IsChecked(ECheckBoxState::Unchecked)
+						.OnCheckStateChanged(this, &SMyCanvas::MyOnCheckBoxStateChange<2>)
+						.Content()
+						[
+							SNew(STextBlock)
+								.Text(FText::FromString("MyCheckBox3"))
+						]
+				]
+		];
 }
 
 FReply SMyCanvas::OnClickButton()
