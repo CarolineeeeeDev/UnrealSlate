@@ -6,6 +6,7 @@
 #include "Slate/MySlateWidgetMainStyle.h"
 #include "MyCustomWindowStyle.h"
 #include "Misc/MessageDialog.h"
+#include "Widgets/Layout/SConstraintCanvas.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SMyCanvas::Construct(const FArguments& InArgs)
@@ -201,6 +202,46 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 				.OnHovered_Lambda([]() {UE_LOG(LogTemp, Warning, TEXT("OnHorvered"))})
 				.OnPressed_Lambda([]() {UE_LOG(LogTemp, Warning, TEXT("OnPressed"))})
 				.OnReleased_Lambda([]() {UE_LOG(LogTemp, Warning, TEXT("OnReleased"))})
+		];
+	//SConstraintCanvas
+	AddSlot()
+		.Position(FVector2D(300, 700))
+		.Size(FVector2D(100, 100))
+		[
+			SNew(SConstraintCanvas)
+				+SConstraintCanvas::Slot()
+				.Anchors(0.f)
+				.Offset(FMargin(0, 0, 100, 30))
+				.Alignment(FVector2D(0,0))
+				.AutoSize(false)
+				.ZOrder(0)
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("MyText1"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SConstraintCanvas::Slot()
+				.Anchors(0.f)
+				.Offset(FMargin(0, 30, 100, 30))
+				.Alignment(FVector2D(0, 0))
+				.AutoSize(false)
+				.ZOrder(0)
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("MyText2"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
+				+ SConstraintCanvas::Slot()
+				.Anchors(0.f)
+				.Offset(FMargin(0, 60, 100, 30))
+				.Alignment(FVector2D(0, 0))
+				.AutoSize(false)
+				.ZOrder(0)
+				[
+					SNew(STextBlock)
+						.Text(FText::FromString("MyText3"))
+						.Font(MyCustomWidgetStyle->MyFont)
+				]
 		];
 }
 
