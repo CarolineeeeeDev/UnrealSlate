@@ -1,4 +1,4 @@
-// Lehan Li's Slate Learning Project
+﻿// Lehan Li's Slate Learning Project
 
 
 #include "Slate/SMyCanvas.h"
@@ -9,6 +9,9 @@
 #include "Widgets/Layout/SConstraintCanvas.h"
 #include "Widgets/Layout/SGridPanel.h"
 #include "Widgets/Layout/SScrollBox.h"
+#include "Widgets/Text/SMultiLineEditableText.h"
+
+#define LOCTEXT_NAMESPACE "MyNameSpace"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SMyCanvas::Construct(const FArguments& InArgs)
@@ -384,6 +387,20 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 					SNew(STextBlock)
 						.Text(FText::FromString("Custom10"))
 						.Font(MyCustomWidgetStyle->MyFont)
+				]
+		];
+	//SMultiLineEditableText
+	static FSlateColorBrush MySlateColorBrush = FSlateColorBrush(FLinearColor(1, 1, 1, 0.5));
+	AddSlot()
+		.Position(FVector2D(900, 50))
+		.Size(FVector2D(200, 200))
+		[
+			SNew(SBorder)
+				.BorderImage(&MySlateColorBrush)
+				[
+					SNew(SMultiLineEditableText)
+						.Font(MyCustomWidgetStyle->MyFont)
+						.HintText(LOCTEXT("text", "请输入内容"))
 				]
 		];
 }
