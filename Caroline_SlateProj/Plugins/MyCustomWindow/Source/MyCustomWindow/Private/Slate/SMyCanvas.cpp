@@ -7,6 +7,7 @@
 #include "MyCustomWindowStyle.h"
 #include "Misc/MessageDialog.h"
 #include "Widgets/Layout/SConstraintCanvas.h"
+#include "Widgets/Layout/SGridPanel.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SMyCanvas::Construct(const FArguments& InArgs)
@@ -284,6 +285,36 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 							SNew(STextBlock)
 								.Text(FText::FromString("MyCheckBox3"))
 						]
+				]
+		];
+	AddSlot()
+		.Position(FVector2D(700, 650))
+		.Size(FVector2D(200, 200))
+		[
+			SNew(SGridPanel)
+				.FillColumn(0, 1)
+				.FillColumn(1, 1)
+				.FillRow(0, 1)
+				.FillRow(1, 1)
+				+SGridPanel::Slot(0,0)
+				[
+					SNew(SImage)
+						.Image(&MyCustomWidgetStyle->MyBrush)
+				]
+				+ SGridPanel::Slot(0, 1)
+				[
+					SNew(SImage)
+						.Image(&MyCustomWidgetStyle->MyBrush)
+				]
+				+ SGridPanel::Slot(1, 0)
+				[
+					SNew(SImage)
+						.Image(&MyCustomWidgetStyle->MyBrush)
+				]
+				+ SGridPanel::Slot(1, 1)
+				[
+					SNew(SImage)
+						.Image(&MyCustomWidgetStyle->MyBrush)
 				]
 		];
 }
