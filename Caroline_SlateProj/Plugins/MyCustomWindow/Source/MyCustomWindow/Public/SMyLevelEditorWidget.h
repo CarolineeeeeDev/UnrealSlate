@@ -24,4 +24,7 @@ public:
 	TSharedRef<SDockTab> SpawnCustomTab5(const FSpawnTabArgs& Arg);
 	TSharedRef<SDockTab> SpawnCustomTab6(const FSpawnTabArgs& Arg);
 	TSharedRef<SDockTab> SpawnCustomTab7(const FSpawnTabArgs& Arg);
+
+	TSharedPtr<FUICommandList> MyCommandsList;
+	void MyCommandClick();
 };

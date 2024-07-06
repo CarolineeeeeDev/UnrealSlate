@@ -3,6 +3,8 @@
 
 #include "SMyLevelEditorWidget.h"
 #include "SlateOptMacros.h"
+#include "MyCommands.h"
+#include "Misc/MessageDialog.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SMyLevelEditorWidget::Construct(const FArguments& InArgs)
@@ -16,6 +18,12 @@ void SMyLevelEditorWidget::Construct(const FArguments& InArgs)
 	FGlobalTabmanager::Get()->RegisterTabSpawner("WorldSetting", FOnSpawnTab::CreateRaw(this, &SMyLevelEditorWidget::SpawnCustomTab6));
 	FGlobalTabmanager::Get()->RegisterTabSpawner("ContentBrowser",FOnSpawnTab::CreateRaw(this, &SMyLevelEditorWidget::SpawnCustomTab7));
 	
+	FMyCommands::Register();
+	MyCommandsList = MakeShareable(new FUICommandList);
+	MyCommandsList->MapAction(FMyCommands::Get().FileCommand, FExecuteAction::CreateRaw(this, &SMyLevelEditorWidget::MyCommandClick), FCanExecuteAction());
+	MyCommandsList->MapAction(FMyCommands::Get().EditCommand, FExecuteAction::CreateRaw(this, &SMyLevelEditorWidget::MyCommandClick), FCanExecuteAction());
+	MyCommandsList->MapAction(FMyCommands::Get().WindowCommand, FExecuteAction::CreateRaw(this, &SMyLevelEditorWidget::MyCommandClick), FCanExecuteAction());
+
 	TSharedRef<FTabManager::FLayout> LayOut = FTabManager::NewLayout(TEXT("LayOut"))
 		->AddArea(
 			FTabManager::NewPrimaryArea()
@@ -100,5 +108,10 @@ TSharedRef<SDockTab> SMyLevelEditorWidget::SpawnCustomTab6(const FSpawnTabArgs& 
 TSharedRef<SDockTab> SMyLevelEditorWidget::SpawnCustomTab7(const FSpawnTabArgs& Arg)
 {
 	return SNew(SDockTab);
+}
+void SMyLevelEditorWidget::MyCommandClick()
+{
+	FMessageDialog::Open(EAppMsgType::OkCancel, FText::FromString("MyCommandsIsDialog"));
+	
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
