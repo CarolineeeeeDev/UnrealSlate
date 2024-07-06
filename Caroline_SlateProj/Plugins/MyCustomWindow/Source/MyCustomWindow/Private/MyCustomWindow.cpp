@@ -10,6 +10,7 @@
 #include "ToolMenus.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Slate/SMyCanvas.h"
+#include "SMyLevelEditorWidget.h"
 
 static const FName MyCustomWindowTabName("MyCustomWindow");
 static const FName MyWindowTabName1("MyWindow1");
@@ -179,7 +180,11 @@ TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnCustomWindow1(const FSpawnTab
 
 TSharedRef<SDockTab> FMyCustomWindowModule::OnSpawnCustomWindow2(const FSpawnTabArgs& SpawnTabArgs)
 {
-	return SNew(SDockTab);
+	return SNew(SDockTab)
+		.TabRole(ETabRole::NomadTab)
+		[
+			SNew(SMyLevelEditorWidget)
+		];
 }
 
 bool FMyCustomWindowModule::OnCanCloseTab()
