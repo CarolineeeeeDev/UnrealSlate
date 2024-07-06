@@ -10,6 +10,7 @@
 #include "Widgets/Layout/SGridPanel.h"
 #include "Widgets/Layout/SScrollBox.h"
 #include "Widgets/Text/SMultiLineEditableText.h"
+#include "Widgets/Layout/SWrapBox.h"
 
 #define LOCTEXT_NAMESPACE "MyNameSpace"
 
@@ -403,6 +404,59 @@ void SMyCanvas::Construct(const FArguments& InArgs)
 						.HintText(LOCTEXT("text", "请输入内容"))
 				]
 		];
+	//SWrapBox
+	AddSlot()
+		.Position(FVector2D(900, 300))
+		.Size(FVector2D(200, 100))
+		[
+			SNew(SWrapBox)
+				.InnerSlotPadding(FVector2D(5, 5))
+				+SWrapBox::Slot()
+				[
+					SNew(SImage)
+						.Image(&MyCustomWidgetStyle->MyBrush)
+				]
+				+ SWrapBox::Slot()
+				[
+					SNew(SImage)
+						.Image(&MyCustomWidgetStyle->MyBrush)
+				]
+				+ SWrapBox::Slot()
+				[
+					SNew(SImage)
+						.Image(&MyCustomWidgetStyle->MyBrush)
+				]
+		];
+	//STreeView
+	TreeItems.Add(MakeShared<FString>("ParentA"));
+	TreeItems.Add(MakeShared<FString>("ParentB"));
+	TreeItems.Add(MakeShared<FString>("ParentC"));
+
+	ChildrenMap.Add("ParentA", TArray<TSharedPtr<FString>>{MakeShared<FString>("ChildrenA")});
+	ChildrenMap.Add("ParentB", TArray<TSharedPtr<FString>>{MakeShared<FString>("ChildrenB1"), MakeShared<FString>("ChildrenB2")});
+	ChildrenMap.Add("ParentC", TArray<TSharedPtr<FString>>{MakeShared<FString>("ChildrenC1"), MakeShared<FString>("ChildrenC2"), MakeShared<FString>("ChildrenC3")});
+
+	AddSlot()
+		.Position(FVector2D(900, 400))
+		.Size(FVector2D(200, 100))
+		[
+			SNew(STreeView<TSharedPtr<FString>>)
+				.TreeItemsSource(&TreeItems)
+				.OnGenerateRow(this, &SMyCanvas::OnGenerateRowForTree)
+				.OnGetChildren(this, &SMyCanvas::OnGenerateChildrenForTree)
+		];
+	ListItems.Add(MakeShared<FString>("111"));
+	ListItems.Add(MakeShared<FString>("222"));
+	ListItems.Add(MakeShared<FString>("333"));
+	//SListView
+	AddSlot()
+		.Position(FVector2D(500, 800))
+		.Size(FVector2D(100, 100))
+		[
+			SNew(SListView<TSharedPtr<FString>>)
+				.ListItemsSource(&ListItems)
+				.OnGenerateRow(this, &SMyCanvas::OnGenerateRowForList)
+		];
 }
 
 FReply SMyCanvas::OnClickButton()
@@ -427,5 +481,30 @@ FText SMyCanvas::GetCurrentItemLabel() const
 		return FText::FromString(*CurrentItem);
 	}
 	return FText::FromString("Failed");
+}
+TSharedRef<ITableRow> SMyCanvas::OnGenerateRowForTree(TSharedPtr<FString> Item, const TSharedRef<STableViewBase>& OwnerTab)
+{
+
+	return SNew(STableRow<TSharedPtr<FString>>, OwnerTab)
+		[
+			SNew(STextBlock)
+				.Text(FText::FromString(*Item))
+		];
+}
+void SMyCanvas::OnGenerateChildrenForTree(TSharedPtr<FString> Item, TArray<TSharedPtr<FString>>& OutChildren)
+{
+	const TArray<TSharedPtr<FString>>* FindChildren = ChildrenMap.Find(*Item);
+	if (FindChildren)
+	{
+		OutChildren = *FindChildren;
+	}
+}
+TSharedRef<ITableRow> SMyCanvas::OnGenerateRowForList(TSharedPtr<FString> Item, const TSharedRef<STableViewBase>& OwnerTab)
+{
+	return SNew(STableRow<TSharedPtr<FString>>, OwnerTab)
+		[
+			SNew(STextBlock)
+				.Text(FText::FromString(*Item))
+		];
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

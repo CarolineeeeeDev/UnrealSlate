@@ -49,4 +49,14 @@ public:
 			}
 		}
 	}
+
+	TArray<TSharedPtr<FString>> TreeItems;
+	TMap<FString, TArray<TSharedPtr<FString>>> ChildrenMap;
+	TSharedRef<ITableRow> OnGenerateRowForTree(TSharedPtr<FString> Item, const TSharedRef<STableViewBase>& OwnerTab);
+	void OnGenerateChildrenForTree(TSharedPtr<FString> Item, TArray<TSharedPtr<FString>>& OutChildren);
+
+	TArray<TSharedPtr<FString>> ListItems;
+	TSharedRef<ITableRow> OnGenerateRowForList(TSharedPtr<FString> Item, const TSharedRef<STableViewBase>& OwnerTab);
+
+
 };
